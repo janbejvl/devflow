@@ -1,3 +1,88 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "standard",
+    "plugin:tailwindcss/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        // NOTE: Unbound imports are assumed to have side effects, and will never be moved/reordered.
+        // See https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#limitations-of---fix.
+        "groups": [
+          "type",
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index",
+          "object",
+          "unknown"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "./*",
+            "group": "index",
+            "position": "after"
+          },
+          {
+            "pattern": "@app/**",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["internal"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        // Sort named imports alphabetically
+        "named": true
+      }
+    ],
+    // Enforces having exactly one empty lines after the last top-level import statement or require call.
+    "import/newline-after-import": ["error"],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports"
+      }
+    ],
+    "padding-line-between-statements": [
+      "error",
+      // Enforce blank line before 'return' statement
+      {
+        "blankLine": "always",
+        "prev": "return",
+        "next": "*"
+      },
+      // Enforce blank line before `const` statement
+      {
+        "blankLine": "always",
+        "prev": "const",
+        "next": "*"
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "components/ui/**"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
 }

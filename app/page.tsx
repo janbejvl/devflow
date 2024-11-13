@@ -1,5 +1,5 @@
-const Home = ()=> (
-    <h1>Welcome to Next.js</h1>
-  );
+const Home = () => (
+  <h1 className="text-3xl font-black text-white">Welcome to Next.js</h1>
+);
 
 export default Home;
