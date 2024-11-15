@@ -5,6 +5,9 @@ import type { ReactNode } from 'react';
 
 import localFont from 'next/font/local';
 
+import { Navbar } from '@/components/navigation/navbar';
+import { ThemeProvider } from '@/context/ThemeContext';
+
 const inter = localFont({
   src: './fonts/InterVF.ttf',
   variable: '--font-inter',
@@ -32,11 +35,19 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
